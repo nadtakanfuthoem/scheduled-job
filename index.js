@@ -4,6 +4,7 @@
 // 2 - Basic auth value
 (async () => {
   const args = process.argv.slice(2);
+  console.log(args);
   console.log(`Deploying json schemas from master to ${args[1]}`);
 
   const valueMap = {
