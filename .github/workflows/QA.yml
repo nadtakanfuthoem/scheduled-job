@@ -1,12 +1,8 @@
 name: QA
 
 on:
-   workflow_dispatch:
-    inputs:
-      aws-account-id:
-        type: string
-        description: AWS Account ID
-        default: "373456726732"
+   schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   deploy-json-schemas:
