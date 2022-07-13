@@ -34,34 +34,6 @@
     return;
   }
 
-  let token;
-  try {
-    token = await getToken(mappings.tokenUrl, args[2]);
-  }
-  catch (err) {
-    console.error('Something went wrong trying to get auth token');
-    console.error(err);
-    process.exitCode = 1;
-    return;
-  }
-
-  const octokit = new Octokit({ auth: args[0] });
-  const files = fs.readdirSync('../').filter(file => file.endsWith('.json'));
-  for (const file of files) {
-    try{
-    const requestTypeId = getRequestTypeId(file.split('.')[0]);
-    const requestType = await loadFile(file, octokit);
-
-    const updatedRequestType = replaceUrls(mappings, requestType);
-    const fields = JSON.parse(updatedRequestType).fields;
-
-    await updateRequestType(mappings.putRequestTypeUrl, token, fields, requestTypeId);
-    } catch(err) {
-      console.error(`Something went wrong updating ${file}`);
-      process.exitCode = 1;
-    }
-  }
-
   function replaceUrls(mappings, requestType) {
     const updatedRequestType = requestType.replace(/{Y_NUMBER_API_URL}/g, mappings.yNumberUrl)
       .replace(/{VALIDATE_CASE_NUMBER_API_URL}/g, mappings.validateCaseNumberUrl);
