@@ -1,8 +1,3 @@
-const fs = require('fs')
-const { Octokit } = require('octokit');
-const axios = require('axios').default;
-var qs = require('qs');
-
 // args
 // 0 - GitHub PAT
 // 1 - Environment to deploy into
