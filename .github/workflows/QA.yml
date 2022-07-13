@@ -1,0 +1,15 @@
+name: QA
+
+on:
+  schedule:
+    - cron: '0 23 * * 1-5'
+
+jobs:
+  deploy-json-schemas:
+    environment: QA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy Current Schemas
+        run: 
+          node index.js ${{ secrets.GH_PAT }} qa ${{ secrets.BASIC_AUTH }}
